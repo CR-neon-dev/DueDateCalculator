@@ -44,10 +44,11 @@ public class DueDateTest {
     public void testCalculateDueDateBetweenBuisneesHours()
     {
         //Test to ensure that it will return a date plus however many hours it will be completed by
-        // 8:00 AM + 3 hours should be = 11am
-        var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,6,8,0),3);
+        // 9:00 AM + 3 hour turn around 
+        var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,6,9,0),3);
         
-        var expected = LocalDateTime.of(2025,Month.MARCH,6,11,0);
+        // should be = 12:00 pm
+        var expected = LocalDateTime.of(2025,Month.MARCH,6,12,0);
         
         assertEquals(expected,result);
     }
@@ -55,11 +56,23 @@ public class DueDateTest {
     @Test
     public void testTimeSubmittedRollingOverToNextBuisnessDay()
     {
-        //Test to ensure that it will return a date plus however many hours it will be completed by
-        // 8:00 AM + 3 hours should be = 11am
-        var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,4,2,12),16);
+        // Tuesday 2:12 pm with 16 hour turn around
+        var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,4,14,12),16);
         
-        var expected = LocalDateTime.of(2025,Month.MARCH,6,2,12);
+        // Thursday 2:12 pm
+        var expected = LocalDateTime.of(2025,Month.MARCH,6,14,12);
+        
+        assertEquals(expected,result);
+    }
+    
+    @Test
+    public void testTimeSubmittedRollingOverToNextBuisnessDayOneMinuteBefore()
+    {
+        // Tuesday 4:59 pm with 2 hour turn around
+        var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,4,16,59),2);
+        
+        // Wensday 10:59 pm
+        var expected = LocalDateTime.of(2025,Month.MARCH,5,10,59);
         
         assertEquals(expected,result);
     }
@@ -67,13 +80,27 @@ public class DueDateTest {
     @Test
     public void testTimeBetweenBuisnessHours()
     {
-        //9 Am
+        // Thursday 9:00 Am
         var time = LocalDateTime.of(2025,Month.MARCH,6,9,0);
+        
         
         var result = DueDate.isBetweenWorkingHours(time);
         
         assertTrue(result);
     }
+    
+    @Test
+    public void testTimeNotBetweenBuisnessHours()
+    {
+        // Thursday 8:00 Am
+        var time = LocalDateTime.of(2025,Month.MARCH,6,8,0);
+        
+        
+        var result = DueDate.isBetweenWorkingHours(time);
+        
+        assertFalse(result);
+    }
+    
     @Test
     public void testIsWeekendMethod() {
         // Test with a Saturday
