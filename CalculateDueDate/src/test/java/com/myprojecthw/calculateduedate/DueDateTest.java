@@ -44,10 +44,22 @@ public class DueDateTest {
     public void testCalculateDueDateBetweenBuisneesHours()
     {
         //Test to ensure that it will return a date plus however many hours it will be completed by
-        // 9:00 AM + 3 hours should be = 11am
+        // 8:00 AM + 3 hours should be = 11am
         var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,6,8,0),3);
         
         var expected = LocalDateTime.of(2025,Month.MARCH,6,11,0);
+        
+        assertEquals(expected,result);
+    }
+    
+    @Test
+    public void testTimeSubmittedRollingOverToNextBuisnessDay()
+    {
+        //Test to ensure that it will return a date plus however many hours it will be completed by
+        // 8:00 AM + 3 hours should be = 11am
+        var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,4,2,12),16);
+        
+        var expected = LocalDateTime.of(2025,Month.MARCH,6,2,12);
         
         assertEquals(expected,result);
     }

@@ -14,11 +14,18 @@ public class DueDate {
     {
         if(isWeekend(SubmittedDate))
         {
+           // Returning the same value for now but should probably throw
            return SubmittedDate;
         }
+        else if(isBetweenWorkingHours(SubmittedDate))
+        {
+            // Returning the same value for now but should throw as well 
+            return SubmittedDate;
+        }
+        
+        
         
         return SubmittedDate.plusHours(hours);
-        
     }
     
     public static boolean isWeekend(LocalDateTime DateSubmitted)
