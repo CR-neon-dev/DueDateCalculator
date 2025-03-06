@@ -12,6 +12,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DueDateTest {
     
+    
+    @Test
+    public void testCalculateDueDateInWeekendThrowsException()
+    {
+        //Test to ensure that it will throw if a weekend is entered
+         assertThrows(IllegalArgumentException.class, () -> {
+            DueDate.calculateDueDate(LocalDateTime.of(2025, Month.MARCH, 8, 9, 0), 3);
+        });
+
+    }
+    
+    @Test
+    public void testCalculateDueDateOutsideWorkHoursThrowsException()
+    {
+        //Test to ensure that it will throw if a weekend is entered
+         assertThrows(IllegalArgumentException.class, () -> {
+            DueDate.calculateDueDate(LocalDateTime.of(2025, Month.MARCH, 8, 5, 0), 3);
+        });
+
+    }
+    
     @Test
     public void testCalculateDueDateBetweenBuisneesHours()
     {

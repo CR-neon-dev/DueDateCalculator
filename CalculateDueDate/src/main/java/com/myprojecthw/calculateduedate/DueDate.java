@@ -14,7 +14,8 @@ public class DueDate {
      * Calculates the date a ticket will be completed given a number hours, but only doing work during business hours.
      * @param submittedDate The date the ticket was submitted
      * @param hours How many hours are needed before the ticket is completed
-     * @return The date the ticket was completed 
+     * @return The date the ticket was completed
+     * @throws IllegalArgumentException if date and time outside work hours
      */
     public static LocalDateTime calculateDueDate(LocalDateTime submittedDate, int hours)
     {
