@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class DueDateTest {
+public class DueDateCalculatorTest {
     
     
     @Test
@@ -18,7 +18,7 @@ public class DueDateTest {
     {
         //Test to ensure that it will throw if a weekend is entered
          assertThrows(IllegalArgumentException.class, () -> {
-            DueDate.calculateDueDate(LocalDateTime.of(2025, Month.MARCH, 8, 9, 0), 3);
+            DueDateCalculator.calculateDueDate(LocalDateTime.of(2025, Month.MARCH, 8, 9, 0), 3);
         });
 
     }
@@ -28,7 +28,7 @@ public class DueDateTest {
     {
         //Test to ensure that it will throw if a weekend is entered
          assertThrows(IllegalArgumentException.class, () -> {
-            DueDate.calculateDueDate(LocalDateTime.of(2025, Month.MARCH, 8, 5, 0), 3);
+            DueDateCalculator.calculateDueDate(LocalDateTime.of(2025, Month.MARCH, 8, 5, 0), 3);
         });
 
     }
@@ -38,7 +38,7 @@ public class DueDateTest {
     {
         //Test to ensure that it will return a date plus however many hours it will be completed by
         // 9:00 AM + 3 hour turn around 
-        var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,6,9,0),3);
+        var result = DueDateCalculator.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,6,9,0),3);
         
         // should be = 12:00 pm
         var expected = LocalDateTime.of(2025,Month.MARCH,6,12,0);
@@ -50,7 +50,7 @@ public class DueDateTest {
     public void testTimeSubmittedRollingOverToNextBuisnessDay()
     {
         // Tuesday 2:12 pm with 16 hour turn around
-        var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,4,14,12),16);
+        var result = DueDateCalculator.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,4,14,12),16);
         
         // Thursday 2:12 pm
         var expected = LocalDateTime.of(2025,Month.MARCH,6,14,12);
@@ -62,7 +62,7 @@ public class DueDateTest {
     public void testTimeSubmittedRollingOverToNextBuisnessDayOneMinuteBefore()
     {
         // Tuesday 4:59 pm with 2 hour turn around
-        var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,4,16,59),2);
+        var result = DueDateCalculator.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,4,16,59),2);
         
         // Wensday 10:59 pm Expected
         var expected = LocalDateTime.of(2025,Month.MARCH,5,10,59);
@@ -73,7 +73,7 @@ public class DueDateTest {
     @Test void testTimeSubmittedRollingOverOnFriday()
     {
          // Friday 2:12 pm with 16 hour turn around
-        var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,7,14,12),16);
+        var result = DueDateCalculator.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,7,14,12),16);
         
         // Tuesday 10:12 am Expected
         var expected = LocalDateTime.of(2025,Month.MARCH,11,14,12);
@@ -88,7 +88,7 @@ public class DueDateTest {
         var time = LocalDateTime.of(2025,Month.MARCH,6,9,0);
         
         //Should Assert True
-        assertTrue(DueDate.isBetweenWorkingHours(time));
+        assertTrue(DueDateCalculator.isBetweenWorkingHours(time));
     }
     
     @Test
@@ -98,22 +98,22 @@ public class DueDateTest {
         var time = LocalDateTime.of(2025,Month.MARCH,6,8,0);
         
         //Should Assert False
-        assertFalse(DueDate.isBetweenWorkingHours(time));
+        assertFalse(DueDateCalculator.isBetweenWorkingHours(time));
     }
     
     @Test
     public void testIsWeekendMethod() {
         // Test with a Saturday
         LocalDateTime saturday = LocalDateTime.of(2025, Month.MARCH, 8, 5, 0); 
-        assertTrue(DueDate.isWeekend(saturday));
+        assertTrue(DueDateCalculator.isWeekend(saturday));
 
         // Test with a Sunday
         LocalDateTime sunday = LocalDateTime.of(2025, Month.MARCH, 9, 5, 0); 
-        assertTrue(DueDate.isWeekend(sunday));
+        assertTrue(DueDateCalculator.isWeekend(sunday));
 
         // Test with a weekday (wensday)
         LocalDateTime wednesday = LocalDateTime.of(2025, Month.MARCH, 5, 10, 0); 
-        assertFalse(DueDate.isWeekend(wednesday));
+        assertFalse(DueDateCalculator.isWeekend(wednesday));
     }
     
 }

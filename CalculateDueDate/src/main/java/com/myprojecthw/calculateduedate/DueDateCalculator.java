@@ -8,7 +8,7 @@ import java.time.LocalTime;
 /**
  * Class that contains methods to calculate a due date
  */
-public class DueDate {
+public class DueDateCalculator {
     
     /**
      * Calculates the date a ticket will be completed given a number hours, but only doing work during business hours.
