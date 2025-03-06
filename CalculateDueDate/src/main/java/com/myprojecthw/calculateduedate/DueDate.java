@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.myprojecthw.calculateduedate;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 /**
  *
@@ -11,10 +10,16 @@ import java.time.LocalDateTime;
  */
 public class DueDate {
     
-//    public static LocalDate calculateDueDate(LocalDate SubmittedDate, int hours)
-//    {
-//        
-//    }
+    public static LocalDateTime calculateDueDate(LocalDateTime SubmittedDate, int hours)
+    {
+        if(isWeekend(SubmittedDate))
+        {
+           return SubmittedDate;
+        }
+        
+        return SubmittedDate.plusHours(hours);
+        
+    }
     
     public static boolean isWeekend(LocalDateTime DateSubmitted)
     {
