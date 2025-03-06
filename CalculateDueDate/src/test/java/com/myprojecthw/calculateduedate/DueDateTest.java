@@ -5,40 +5,12 @@
 package com.myprojecthw.calculateduedate;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.Month;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author fulin
- */
+
 public class DueDateTest {
-    
-    public DueDateTest() {
-        
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-        
-        
-        
-    }
-    
-    
-    
-    @AfterAll
-    public static void tearDownClass() {
-        
-        
-    }
-    
     
     @Test
     public void testCalculateDueDateBetweenBuisneesHours()
@@ -71,8 +43,19 @@ public class DueDateTest {
         // Tuesday 4:59 pm with 2 hour turn around
         var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,4,16,59),2);
         
-        // Wensday 10:59 pm
+        // Wensday 10:59 pm Expected
         var expected = LocalDateTime.of(2025,Month.MARCH,5,10,59);
+        
+        assertEquals(expected,result);
+    }
+    
+    @Test void testTimeSubmittedRollingOverOnFriday()
+    {
+         // Friday 2:12 pm with 16 hour turn around
+        var result = DueDate.calculateDueDate(LocalDateTime.of(2025,Month.MARCH,7,14,12),16);
+        
+        // Tuesday 10:12 am Expected
+        var expected = LocalDateTime.of(2025,Month.MARCH,11,14,12);
         
         assertEquals(expected,result);
     }
@@ -83,10 +66,8 @@ public class DueDateTest {
         // Thursday 9:00 Am
         var time = LocalDateTime.of(2025,Month.MARCH,6,9,0);
         
-        
-        var result = DueDate.isBetweenWorkingHours(time);
-        
-        assertTrue(result);
+        //Should Assert True
+        assertTrue(DueDate.isBetweenWorkingHours(time));
     }
     
     @Test
@@ -95,10 +76,8 @@ public class DueDateTest {
         // Thursday 8:00 Am
         var time = LocalDateTime.of(2025,Month.MARCH,6,8,0);
         
-        
-        var result = DueDate.isBetweenWorkingHours(time);
-        
-        assertFalse(result);
+        //Should Assert False
+        assertFalse(DueDate.isBetweenWorkingHours(time));
     }
     
     @Test
