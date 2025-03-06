@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DueDateTest {
     
     public DueDateTest() {
+        
     }
     
     @BeforeAll
@@ -51,6 +52,16 @@ public class DueDateTest {
         assertEquals(expected,result);
     }
     
+    @Test
+    public void testTimeBetweenBuisnessHours()
+    {
+        //9 Am
+        var time = LocalDateTime.of(2025,Month.MARCH,6,9,0);
+        
+        var result = DueDate.isBetweenWorkingHours(time);
+        
+        assertTrue(result);
+    }
     @Test
     public void testIsWeekendMethod() {
         // Test with a Saturday

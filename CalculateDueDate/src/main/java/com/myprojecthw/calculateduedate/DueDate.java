@@ -34,4 +34,15 @@ public class DueDate {
         
         return false;
     }
+    
+    public static boolean isBetweenWorkingHours(LocalDateTime DateSubmitted)
+    {
+        int currentHour = DateSubmitted.getHour();
+        
+        // if between 9 am and 5 pm return true else false
+        if(currentHour >= 9 && currentHour< 17)
+            return true;
+        else
+            return false;
+    }
 }
